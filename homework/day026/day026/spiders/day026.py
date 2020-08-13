@@ -1,6 +1,6 @@
 import scrapy
 from bs4 import BeautifulSoup
-
+from day026.items import Day026Item
 
 class PttcrawlerSpider(scrapy.Spider):
     name = 'day026'
@@ -41,12 +41,13 @@ class PttcrawlerSpider(scrapy.Spider):
             m.extract()
 
         #整理文章資訊
-        data = {'url':response.url,
-                'author':author,
-                'title':title,
-                'tag':tag,
-                'date':datetime,
-                'content':main_content.text}
+        data = Day026Item()
+        data['url'] = response.url
+        data['author'] = author
+        data['title'] = title
+        data['tag'] = tag
+        data['date'] = datetime
+        data['content'] = main_content.text
         yield data
         
         
